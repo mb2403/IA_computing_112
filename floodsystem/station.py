@@ -50,8 +50,16 @@ class MonitoringStation:
             return False
         else:
             return True
+
+    def relative_water_level(self):                                     # LC Task 2B
+        if (self.typical_range_consistent() == False) or (self.latest_level == None):
+            return None                                                 # returns none if typical values are not consistent, or if data for latest level is not available
+        else:                                                           # returns the relative water level using formula (level - typical min)/(typical max - typical min)
+            return ((self.latest_level)-(self.typical_range[0]))/((self.typical_range[1])-(self.typical_range[0]))
             
 
+
+            
 def inconsistent_typical_range_stations(stations):                      # LC Task 1F
     incon_list=[]
     for item in stations:
