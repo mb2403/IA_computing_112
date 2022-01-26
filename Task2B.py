@@ -10,6 +10,7 @@ def run():
     update_water_levels(stations)
 
     stations_over = stations_level_over_threshold(stations,0.8)                        #defines the list stations_over as any (valid data) station where the recent relative level is over 0.8
+    print("The stations currently about the tolerance are:")
     for i in range(len(stations_over)):
         print((stations_over[i][0]).name, (stations_over[i][0].relative_water_level()))#prints the station name and relative water level
 
