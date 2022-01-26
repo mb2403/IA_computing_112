@@ -21,9 +21,9 @@ def run():
     cam.sort()
     thames.sort()
 
-    print(aire)
-    print(cam)
-    print(thames)
+    print("Stations along the river Aire - {}".format(aire))
+    print("Stations along the River Cam - {}".format(cam))
+    print("Stations along the River Thames - {}".format(thames))
     
 
 if __name__ == "__main__":
