@@ -67,6 +67,6 @@ def rivers_by_station_number(stations, N):                              # MB Tas
         river_station_quantity.append((key, len(value)))
 
     
-    river_station_quantity = sorted(river_station_quantity, key = lambda x:-x[1])
+    river_station_quantity = sorted_by_key(river_station_quantity, 1, reverse=True)
 
     return river_station_quantity[:N]
