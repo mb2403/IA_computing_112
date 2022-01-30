@@ -7,6 +7,7 @@ geographical data.
 
 """
 
+from tkinter import Variable
 from floodsystem.datafetcher import fetch_station_data
 from floodsystem.station import MonitoringStation           
 from .utils import sorted_by_key                                        # allows sorting
@@ -24,6 +25,24 @@ def stations_by_distance(stations,p):                                   # LC Tas
     
     names_and_distance_list = list(zip(names_list,distance_list))       # combines lists into a list of tuples (name,distance)
     return(sorted_by_key(names_and_distance_list,1))                    # returns the sorted list using sorted_by_key (sorts by distance)
+
+def stations_within_radius(stations, center, r):
+    stations_distance = stations_by_distance(stations, center)
+
+    stations_in_r = []
+
+    for i, stations in enumerate(stations):
+        if stations_distance[i][1] < r:
+            stations_in_r.append(stations_distance[i][0])
+        else:
+            break
+    stations_in_r.sort()
+
+    return stations_in_r
+
+
+
+
 
 def rivers_with_station(stations):                                      # LC Task 1D
     rivers_set = set()                                                  # a set it used here to avoid duplicate entries
