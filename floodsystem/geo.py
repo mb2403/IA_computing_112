@@ -57,3 +57,16 @@ def stations_by_river(stations):                                        # LC Tas
         dictionary[item.river].append(item.name)                        # dictionary keys: rivers, values: (station1, station2 ...)
     
     return dictionary
+
+def rivers_by_station_number(stations, N):                              # MB Task 1E
+    stations_by_riv = stations_by_river(stations)                       
+
+    river_station_quantity = []                                         #Creates empy list for 
+
+    for key, value in stations_by_riv.items():
+        river_station_quantity.append((key, len(value)))
+
+    
+    river_station_quantity = sorted(river_station_quantity, key = lambda x:-x[1])
+
+    return river_station_quantity[:N]
