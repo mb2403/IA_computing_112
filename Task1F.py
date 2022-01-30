@@ -1,9 +1,8 @@
 # Lewis Clark Jan 2022
 # Task 1F
 
-from floodsystem.geo import stations_by_distance, rivers_with_station, stations_by_river
 from floodsystem.station import inconsistent_typical_range_stations
-from floodsystem.stationdata import build_station_list, update_water_levels
+from floodsystem.stationdata import build_station_list
 
 def run():
     stations = build_station_list()
