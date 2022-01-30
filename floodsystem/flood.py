@@ -26,7 +26,7 @@ def stations_highest_rel_level(stations, N):
     for item in stations:
         if (item.typical_range_consistent() == False) or (item.relative_water_level() == None):             #checks if data is valid
             pass
-        else:                                                           #if data > tol then add to list.
+        else:                                                           
             stations_list.append(item)
             relatives_list.append(item.relative_water_level())
             
