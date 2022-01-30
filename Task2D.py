@@ -43,6 +43,7 @@ def run():
         station_cam.measure_id, dt=datetime.timedelta(days=dt))
 
     # Print level history
+    print("The level history for the station Cam over the past 2 days is:")
     for date, level in zip(dates, levels):
         print(date, level)
 

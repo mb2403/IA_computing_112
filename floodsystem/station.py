@@ -7,6 +7,10 @@ for manipulating/modifying station data
 """
 
 
+#from types import NoneType
+#from sqlalchemy import Float, true
+
+
 class MonitoringStation:
     """This class represents a river level monitoring station"""
 
@@ -38,3 +42,27 @@ class MonitoringStation:
         d += "   river:         {}\n".format(self.river)
         d += "   typical range: {}".format(self.typical_range)
         return d
+
+    def typical_range_consistent(self):                                 # LC Task 1F
+        if self.typical_range == None:                                  # typical range none
+            return False
+        elif self.typical_range[0] > self.typical_range[1]:             # lower bound of range higher than upper bound
+            return False
+        else:
+            return True
+
+    def relative_water_level(self):                                     # LC Task 2B
+        if (self.typical_range_consistent() == False) or (self.latest_level == None):
+            return None                                                 # returns none if typical values are not consistent, or if data for latest level is not available
+        else:                                                           # returns the relative water level using formula (level - typical min)/(typical max - typical min)
+            return ((self.latest_level)-(self.typical_range[0]))/((self.typical_range[1])-(self.typical_range[0]))
+            
+
+
+            
+def inconsistent_typical_range_stations(stations):                      # LC Task 1F
+    incon_list=[]
+    for item in stations:
+        if item.typical_range_consistent() == False:
+            incon_list.append(item.name)
+    return (incon_list)
