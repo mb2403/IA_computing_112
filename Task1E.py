@@ -1,4 +1,4 @@
-# Max Bowler jan 2022
+# Max Bowler Jan 2022
 # Task 1E
 #
 
