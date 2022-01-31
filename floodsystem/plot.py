@@ -4,6 +4,19 @@ from floodsystem.analysis import polyfit
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+from datetime import date, datetime, timedelta
+
+def plot_water_levels(station, dates, levels):
+
+    plt.plot(dates, levels, label=station.name)
+    plt.xlabel("date")
+    plt.ylabel("Water level(m)")
+    plt.xticks(rotation=45)
+    plt.title("Water level data readings taken from", station)
+
+    plt.tight_layout()
+    plt.show()
+
 
 def plot_water_level_with_fit(station,dates,levels,p):                          #LC Task 2F
     poly, d0 = polyfit(dates,levels,p)                                          #generates polynomial
