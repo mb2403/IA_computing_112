@@ -27,7 +27,7 @@ def run():
 #Need to find a way to find the current gradient of the measured height curve
     future_rel_risk = []
     for stations in range(len(stations)):
-        current_grad = numpy.gradient(plot_water_level_with_fit(stations, 0, levels, p))
+        current_grad = numpy.gradient(plot_water_level_with_fit(stations, 0, stations.measureid, p))
         future_rel_risk.append(current_grad)
 
 
