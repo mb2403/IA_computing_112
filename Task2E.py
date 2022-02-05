@@ -1,4 +1,4 @@
-# Max Bowler Jan 2022
+# Max Bowler/Lewis Clark Jan/Feb 2022
 # Task 2E
 #
 #%%
@@ -7,29 +7,23 @@ from floodsystem.datafetcher import fetch_measure_levels
 from floodsystem.analysis import polyfit
 from floodsystem.plot import plot_water_levels
 from floodsystem.stationdata import build_station_list, update_water_levels
-from floodsystem.flood import stations_highest_rel_level
+from floodsystem.flood import stations_highest_rel_level, stations_level_over_threshold
 import numpy as np
-import matplotlib.pyplot as  plot
+import matplotlib.pyplot as  plt
 
 def run():
+
     stations = build_station_list()
-    N = 5 
-    names_high_rel = stations_highest_rel_level(stations, N)
+    update_water_levels(stations)    
 
-    data_list = []
-    for station in stations:
-        for i in range(len(names_high_rel)):
-            if station.name == names_high_rel[i][0]:
-                data_list.append(station)
-        
+    highest_relative_level_stations = (stations_level_over_threshold(stations,0))[-5:]           #chooses the 5 stations with the highest relative level
 
-    dt = 10
-    dates = np.empty(N, dtype=object)
-    levels = [None, None, None, None, None, None, None, None, None, None]
-    for i in range(len(data_list)):
-        dates[i], levels[i] = fetch_measure_levels(data_list[i].measure_id, dt = datetime.timedelta(days = dt))
-
-        plot_water_levels(data_list[i], dates[i], levels[i])
+    for item in highest_relative_level_stations:                
+        station = item[0]
+        dates, levels = fetch_measure_levels(station.measure_id, dt=datetime.timedelta(days=2))  #fetches dates and levels using datafectcher
+        #print (levels) 
+        #print (dates)                                                                           #make sure that it prints exactly 5!!
+        plot_water_levels(station, dates, levels)
     
 
 if __name__ == "__main__":
