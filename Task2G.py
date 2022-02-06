@@ -84,6 +84,7 @@ def run():
         for i in town_set:
             if town_set[station.name] == stations[i][0]:
                 tot_town_risk += stations[i][1]
+            tot_town_risk /= len(town_set)
         town_set.append(tot_town_risk)
 
     town_set = sorted_by_key(town_set, 1, reverse=True)
