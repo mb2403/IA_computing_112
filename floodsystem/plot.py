@@ -1,4 +1,4 @@
-# Lewis Clark and Max Bowler Jan/Feb 2022
+# Lewis Clark/Max Bowler Jan/Feb 2022
 
 from floodsystem.analysis import polyfit
 import matplotlib

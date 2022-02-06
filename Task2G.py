@@ -1,37 +1,24 @@
-# Max Bowler Feb 2022
+# Max Bowler/Lewis Clark Feb 2022
 # Task 2G
 #
 
 import numpy
-from floodsystem.plot import plot_water_level_with_fit
 from floodsystem.stationdata import build_station_list
 from floodsystem.flood import stations_highest_rel_level
 from floodsystem.utils import sorted_by_key
 from numpy import gradient
 from floodsystem.analysis import polyfit
-from floodsystem.geo import stations_by_river
+from floodsystem.geo import stations_by_town
 from collections import defaultdict
 
 
 def run():
-
     stations = build_station_list()
-
-#List of stations in each town for later
-    def stations_by_town():
-        dictionary = defaultdict(list)                                      # creates a dictionary where the values are of type list
-        for item in stations:
-            dictionary[item.town].append(item.name)                        # dictionary keys: rivers, values: (station1, station2 ...)
-    
-        return dictionary
-    
     town_set = stations_by_town(stations)
-
     N =  len(stations)
 
     current_rel_risk = stations_highest_rel_level(stations, N)
-
-#Need to find a way to find the current gradient of the measured height curve
+    #Need to find a way to find the current gradient of the measured height curve
     future_rel_risk = []
 
     levels = []
@@ -43,7 +30,6 @@ def run():
         current_grad = numpy.gradient(polyfit(0, levels, 10))
         float(current_grad)
         future_rel_risk.append(current_grad)
-
 
     combined_rel_risk = []
 
