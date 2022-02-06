@@ -92,6 +92,27 @@ def run():
     for i in range(len(town_set)):
         print(town_set[i][0], town_set[i][1])
 
+    M = len(town_set)
+    g = M/5
+    h = 2*M/5
+    j = 3*M/5
+    k = 4*M/5
+
+    print("The following towns are at severe relative risk level:")
+    for i in range(0, g):
+        print(town_set[i][0], town_set[i][1])
+    print("The following towns are at high relative risk level:")
+    for i in range(g, h):
+        print(town_set[i][0], town_set[i][1])
+    print("The following towns are at moderate relative risk level:")
+    for i in range(h, j):
+        print(town_set[i][0], town_set[i][1])
+    print("The following towns are at low relative risk level:")
+    for i in range(j, k):
+        print(town_set[i][0], town_set[i][1])
+    print("The  following towns should not be considered a threat (relative to those above)")
+    for i in range(k, N):
+        print(town_set[i][0], town_set[i][1])
 
 
 if __name__ == "__main__":
