@@ -88,9 +88,10 @@ def run():
 
     town_set = sorted_by_key(town_set, 1, reverse=True)
 
-    print("List of towns in order of highest to lowest risk relaitve to eachother:")
+    #Code below did not sort towns into categories as per instructions
+    """print("List of towns in order of highest to lowest risk relaitve to eachother:")
     for i in range(len(town_set)):
-        print(town_set[i][0], town_set[i][1])
+        print(town_set[i][0], town_set[i][1])"""
 
     M = len(town_set)
     g = M/5
