@@ -1,4 +1,4 @@
-# Lewis Clark + Max Bowler Jan/Feb 2022
+# Lewis Clark/Max Bowler Jan/Feb 2022
 #
 
 from floodsystem.station import MonitoringStation
