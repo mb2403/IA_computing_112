@@ -28,11 +28,6 @@ def run():
     town_set = stations_by_town(stations)
 
     N =  len(stations)
-    g = N/5
-    h = 2*N/5
-    j = 3*N/5
-    k = 4*N/5
-
 
     current_rel_risk = stations_highest_rel_level(stations, N)
 
@@ -60,7 +55,12 @@ def run():
 
     stations = sorted_by_key(stations, 1, reverse=True)
 
-#The below was writen when I thought we first needed to find a ranking of risks based on station
+#The below was writen when I thought we needed to find a ranking of risks based on station
+    """g = N/5
+        h = 2*N/5
+        j = 3*N/5
+        k = 4*N/5"""
+
     """print("The following stations are at severe risk level:")
     for i in range(0, g):
         print(stations[i][0], stations[i][1])
@@ -79,7 +79,7 @@ def run():
 
 
 #Making a sum of the relative risks at all the stations within a town, and assigning that to a town
-    tot_town_risk = 0
+    tot_town_risk = ()
     for station in stations:   
         for i in town_set:
             if town_set[station.name] == stations[i][0]:
