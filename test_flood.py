@@ -30,9 +30,7 @@ sacrificial_offering_2 = MonitoringStation(
                 river='river_offering',
                 town='town_offering')
 
-
 sacrificial_offering = [sacrificial_offering_1, sacrificial_offering_2]
-
 
 def test_stations_highest_rel_level():
     sacrificial_offering[0].latest_level = 1.4
