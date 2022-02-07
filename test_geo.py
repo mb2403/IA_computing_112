@@ -35,9 +35,9 @@ def test_stations_by_distance():
     assert len(geo.stations_by_distance(stations, (0, 0))) >0
     assert round(geo.stations_by_distance(sacrificial_offering, (0,0)) [0][1]) == 16
 
-def test_rivers_with_staiton():
+def test_rivers_with_station():
     assert len(geo.rivers_with_station(stations)) >0
-    assert geo.rivers_with_station(sacrificial_offering) == ['river_offering']
+    assert geo.rivers_with_station(sacrificial_offering) == {'river_offering'}
 
 def test_stations_by_river():
     assert len(geo.stations_by_river(stations)) >  0
