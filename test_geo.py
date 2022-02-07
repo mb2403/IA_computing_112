@@ -2,7 +2,7 @@
 
 #Testing for the geo sub module
 
-from sklearn.utils import assert_all_finite
+#from sklearn.utils import assert_all_finite
 from floodsystem.stationdata import build_station_list
 import floodsystem.geo as geo
 from floodsystem.station import MonitoringStation
