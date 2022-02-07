@@ -1,5 +1,5 @@
 #  TEST for  flood submodule
-#Max B Feb 2022
+#Max B/LC Feb 2022
 #Testing subroutines in the "Flood" submodule
 
 from cgi import test
@@ -33,5 +33,5 @@ sacrificial_offering = [MonitoringStation(
 def test_stations_highest_rel_level():
     sacrificial_offering[0].latest_level = 1.4
     sacrificial_offering[1].latest_level = 255
-    assert flood.stations_highest_rel_level(sacrificial_offering,  1) == [('sacrificial_offering_1', -2/3)]
+    assert flood.stations_highest_rel_level(sacrificial_offering,  1) == [('sacrificial_offering_1',1,10,(0.1,0.1),'town_offering','river_offering', (1.2,1.5), 0.6666666666666664)]
     
