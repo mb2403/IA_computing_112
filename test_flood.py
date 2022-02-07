@@ -33,6 +33,6 @@ sacrificial_offering = [MonitoringStation(
 def test_stations_highest_rel_level():
     sacrificial_offering[0].latest_level = 1.4
     sacrificial_offering[1].latest_level = 255
-    correct_output = [(sacrificial_offering[0])]
+    correct_output =  ("Station name:     sacrificial_offering_1\n   id:            1\n   measure id:    10\n   coordinate:    (0.1, 0.1)\n   town:          town_offering\n   river:         river_offering\n   typical range: (1.2, 1.5)", 0.6666666666666664)
     assert flood.stations_highest_rel_level(sacrificial_offering,  1) == correct_output
     
