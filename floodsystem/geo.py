@@ -72,11 +72,12 @@ def rivers_by_station_number(stations, N):                              # MB Tas
 
     list = river_station_quantity[:N]
 
-    missing_station = True
-    while missing_station == True:
+    missing_station = False
+    while missing_station == False:
         if river_station_quantity[N][1] == river_station_quantity[N+1][1]:
             list.append(river_station_quantity[N+1])
-        else: missing_station == False
+        else: 
+            missing_station = True
 
     return list
 
