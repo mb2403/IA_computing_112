@@ -8,6 +8,9 @@ geographical data.
 """
 
 from tkinter import Variable
+import turtle
+
+from sqlalchemy import true
 from floodsystem.datafetcher import fetch_station_data
 from floodsystem.station import MonitoringStation           
 from .utils import sorted_by_key                                        # allows sorting
@@ -66,7 +69,14 @@ def rivers_by_station_number(stations, N):                              # MB Tas
     
     river_station_quantity = sorted_by_key(river_station_quantity, 1, reverse=True)
 
-    return river_station_quantity[:N]
+
+    list = river_station_quantity[:N]
+    missing_station = True
+    while missing_station == True:
+        if river_station_quantity[N][1] == river_station_quantity[N+1][1]:
+            list.append(river_station_quantity[N+1])
+
+    return list
 
 def stations_by_town(stations):
         dictionary = defaultdict(list)                                      # creates a dictionary where the values are of type list
