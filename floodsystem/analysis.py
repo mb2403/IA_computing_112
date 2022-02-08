@@ -14,3 +14,6 @@ def polyfit(dates,levels,p):                                    #LC Task 2F
 
     return poly, d0                                             #returns the polynomial expression and shift
 
+def current_gradient(poly):
+    der = np.poly1d.deriv(poly)
+    return np.polyval(der,0)
