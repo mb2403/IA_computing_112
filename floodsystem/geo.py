@@ -59,11 +59,11 @@ def stations_by_river(stations):                                        # LC Tas
     return dictionary
 
 def rivers_by_station_number(stations, N):                              # MB Task 1E
-    stations_by_riv = stations_by_river(stations)                       
+    stations_on_rivers = stations_by_river(stations)                       
 
     river_station_quantity = []                                         #Creates empy list for 
 
-    for key, value in stations_by_riv.items():
+    for key, value in stations_on_rivers.items():
         river_station_quantity.append((key, len(value)))
 
     
@@ -71,10 +71,12 @@ def rivers_by_station_number(stations, N):                              # MB Tas
 
 
     list = river_station_quantity[:N]
+
     missing_station = True
     while missing_station == True:
         if river_station_quantity[N][1] == river_station_quantity[N+1][1]:
             list.append(river_station_quantity[N+1])
+        else: missing_station == False
 
     return list
 
