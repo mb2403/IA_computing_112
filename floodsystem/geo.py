@@ -10,7 +10,6 @@ geographical data.
 from tkinter import Variable
 import turtle
 
-from sqlalchemy import true
 from floodsystem.datafetcher import fetch_station_data
 from floodsystem.station import MonitoringStation           
 from .utils import sorted_by_key                                        # allows sorting
