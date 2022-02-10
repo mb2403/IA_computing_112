@@ -5,7 +5,7 @@
 from cgi import test
 from  floodsystem.station import MonitoringStation
 from floodsystem.stationdata import build_station_list, update_water_levels
-import floodsystem.flood as flood
+from floodsystem.flood import stations_level_over_threshold, stations_highest_rel_level
 
 
 stations = build_station_list()
@@ -35,5 +35,9 @@ sacrificial_offering = [sacrificial_offering_1, sacrificial_offering_2]
 def test_stations_highest_rel_level():
     sacrificial_offering[0].latest_level = 1.4
     sacrificial_offering[1].latest_level = 255
-    assert flood.stations_highest_rel_level(sacrificial_offering,  1) == [(sacrificial_offering_1,0.6666666666666664)]
+    assert stations_highest_rel_level(sacrificial_offering, 1) == [(sacrificial_offering_1,0.6666666666666664)]
     
+def test_stations_over_threshold():
+    sacrificial_offering_1.latest_level = 10
+    sacrificial_offering_2.latest_level = 10
+    assert stations_level_over_threshold(sacrificial_offering) == sacrificial_offering_1()
