@@ -1,4 +1,4 @@
-# Lewis Clark Jan 2022
+# Lewis Clark Jan/Feb 2022
 
 import numpy as np
 import matplotlib
@@ -23,9 +23,9 @@ def polyfit(dates,levels,p):                                    #LC Task 2F
 
 def issue_warnings(stations, p=4, dt=1):
     
-    def risk_definition(risk):
-        boundaries = (0, 0.8, 1.5, 2)
-        if risk is None:
+    def risk_definition(risk):                                  #define the boundaries for risks 
+        boundaries = (0, 0.8, 1.5, 2)                           #these can be changed based on results
+        if risk == None:
             return "unknown"
         if risk < boundaries[1]:
             return "low"
@@ -36,35 +36,28 @@ def issue_warnings(stations, p=4, dt=1):
         else:
             return "severe"
 
-    def stations_by_town(stations):
-        dictionary = defaultdict(list)                                      # creates a dictionary where the values are of type list
-        for item in stations:
-            dictionary[item.town].append(item)                        # dictionary keys: rivers, values: (station1, station2 ...)
-    
-        return dictionary
-
     stations_by_risk = []
     risk_of_towns = {}
-    first_deriv_weight, second_deriv_weight = (5, 0.1)
+    first_deriv_weight, second_deriv_weight = (5, 0.1)                      #weighting of the derivatives, can be changed 
 
     inconsistent_stations = inconsistent_typical_range_stations(stations)
-    unsafe_stations_name = stations_level_over_threshold(stations, 0.8)
+    unsafe_stations_name = stations_level_over_threshold(stations, 0.8)     #0.8 can be changed as desired
     unsafe_stations = [station for station in stations for name, level in unsafe_stations_name if station.name == name]
 
     for station in stations:
         if station in inconsistent_stations:
             pass
         if not station.latest_level_consistent():
-            inconsistent_stations.append(station)
+            inconsistent_stations.append(station)                           #gets rid of inconsistent stations
         if station not in unsafe_stations:
             stations_by_risk.append((station, station.relative_water_level(), risk_definition(station.relative_water_level())))
 
-        dates, levels = fetch_measure_levels(station.measure_id, dt =datetime.timedelta(days=dt))
+        dates, levels = fetch_measure_levels(station.measure_id, dt =datetime.timedelta(days=dt))       #fetched plotting data
 
         try:
             levels = np.array(levels)
             levels = (levels - station.typical_range[0]) / (station.typical_range[1] - station.typical_range[0])
-        except (TypeError, ValueError):
+        except (TypeError, ValueError):                                     #makes sure bad data doenst break the program
             inconsistent_stations.append(station)
 
         try:
@@ -77,7 +70,7 @@ def issue_warnings(stations, p=4, dt=1):
         second_deriv = poly.deriv(2)
         risk_value = poly(0)
         risk_value += first_deriv(0) * first_deriv_weight
-        risk_value += second_deriv(0) * second_deriv_weight
+        risk_value += second_deriv(0) * second_deriv_weight             #
 
         if (risk_value is None) or (station.relative_water_level() is None):
             inconsistent_stations.append(station)
