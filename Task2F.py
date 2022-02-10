@@ -8,13 +8,13 @@ from floodsystem.datafetcher import fetch_measure_levels
 from floodsystem.analysis import polyfit
 from floodsystem.plot import plot_water_level_with_fit
 from floodsystem.stationdata import build_station_list, update_water_levels
-from floodsystem.flood import stations_level_over_threshold
+from floodsystem.flood import stations_highest_rel_level
 
 def run():
     stations = build_station_list()
     update_water_levels(stations)    
 
-    highest_relative_level_stations = (stations_level_over_threshold(stations,0))[-5:]           #chooses the 5 stations with the highest relative level
+    highest_relative_level_stations = stations_highest_rel_level(stations, 6)          #chooses the 5 stations with the highest relative level
 
     for item in highest_relative_level_stations:                
         station = item[0]
