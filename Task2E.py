@@ -16,7 +16,7 @@ def run():
     stations = build_station_list()
     update_water_levels(stations)    
 
-    highest_relative_level_stations = stations_highest_rel_level(stations, 5)          #chooses the 5 stations with the highest relative level
+    highest_relative_level_stations = stations_highest_rel_level(stations, 6)          #chooses the 5 stations with the highest relative level
 
     for item in highest_relative_level_stations:                
         station = item[0]
