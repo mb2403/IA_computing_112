@@ -52,5 +52,6 @@ def test_stations_within_radius():
 def test_rivers_by_station_number():
     sacrifice_list  = geo.rivers_by_station_number(stations, 10)
     assert sacrifice_list[0][1] >= sacrifice_list[1][1]
+    assert sacrifice_list[6][1] == sacrifice_list[7][1]
     assert sacrifice_list [0][0] == "River Thames"
     
