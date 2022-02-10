@@ -2,6 +2,13 @@
 
 import numpy as np
 import matplotlib
+from collections import defaultdict
+import datetime
+
+from floodsystem.datafetcher import fetch_measure_levels
+from floodsystem.station import MonitoringStation
+from floodsystem.flood import stations_level_over_threshold
+from floodsystem.station import inconsistent_typical_range_stations 
 
 def polyfit(dates,levels,p):                                    #LC Task 2F
     x = matplotlib.dates.date2num(dates)                        #converts into days since the year 0001
@@ -14,6 +21,75 @@ def polyfit(dates,levels,p):                                    #LC Task 2F
 
     return poly, d0                                             #returns the polynomial expression and shift
 
-def current_gradient(poly):
-    der = np.poly1d.deriv(poly)
-    return np.polyval(der,0)
+def issue_warnings(stations, p=4, dt=1):
+    
+    def risk_definition(risk):
+        boundaries = (0, 0.8, 1.5, 2)
+        if risk is None:
+            return "unknown"
+        if risk < boundaries[1]:
+            return "low"
+        if risk < boundaries[2]:
+            return "moderate"
+        if risk < boundaries[3]:
+            return "high"
+        else:
+            return "severe"
+
+    def stations_by_town(stations):
+        dictionary = defaultdict(list)                                      # creates a dictionary where the values are of type list
+        for item in stations:
+            dictionary[item.town].append(item)                        # dictionary keys: rivers, values: (station1, station2 ...)
+    
+        return dictionary
+
+    stations_by_risk = []
+    risk_of_towns = {}
+    first_deriv_weight, second_deriv_weight = (5, 0.1)
+
+    inconsistent_stations = inconsistent_typical_range_stations(stations)
+    unsafe_stations_name = stations_level_over_threshold(stations, 0.8)
+    unsafe_stations = [station for station in stations for name, level in unsafe_stations_name if station.name == name]
+
+    for station in stations:
+        if station in inconsistent_stations:
+            pass
+        if not station.latest_level_consistent():
+            inconsistent_stations.append(station)
+        if station not in unsafe_stations:
+            stations_by_risk.append((station, station.relative_water_level(), risk_definition(station.relative_water_level())))
+
+        dates, levels = fetch_measure_levels(station.measure_id, dt =datetime.timedelta(days=dt))
+
+        try:
+            levels = np.array(levels)
+            levels = (levels - station.typical_range[0]) / (station.typical_range[1] - station.typical_range[0])
+        except (TypeError, ValueError):
+            inconsistent_stations.append(station)
+
+        try:
+            poly, d0 = polyfit(dates,levels,p)
+            
+        except (IndexError, ValueError, TypeError):
+            inconsistent_stations.append(station)
+
+        first_deriv = poly.deriv()
+        second_deriv = poly.deriv(2)
+        risk_value = poly(0)
+        risk_value += first_deriv(0) * first_deriv_weight
+        risk_value += second_deriv(0) * second_deriv_weight
+
+        if (risk_value is None) or (station.relative_water_level() is None):
+            inconsistent_stations.append(station)
+        elif risk_value < station.relative_water_level():
+            risk_value = station.relative_water_level()
+        
+
+        stations_by_risk.append((station, risk_value, risk_definition(risk_value)))
+
+        if (not station.town in risk_of_towns.keys()) or (risk_value > risk_of_towns[station.town]):
+            risk_of_towns[station.town] = risk_value
+        else:
+            stations_by_risk.append((station, 0, risk_definition(0)))
+
+    return risk_of_towns

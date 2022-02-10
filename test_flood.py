@@ -39,5 +39,5 @@ def test_stations_highest_rel_level():
     
 def test_stations_over_threshold():
     sacrificial_offering_1.latest_level = 10
-    sacrificial_offering_2.latest_level = 10
-    assert stations_level_over_threshold(sacrificial_offering) == sacrificial_offering_1
+    sacrificial_offering_2.latest_level = 20
+    assert stations_level_over_threshold(sacrificial_offering, 15) == sacrificial_offering_1
