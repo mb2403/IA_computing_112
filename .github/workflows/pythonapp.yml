@@ -25,7 +25,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install  flake8 matplotlib pytest requests
+          pip install flake8 
+          pip install matplotlib 
+          pip install pytest 
+          pip install requests
           pip install haversine 
           pip install pandas
           pip install plotly
