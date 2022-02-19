@@ -33,6 +33,7 @@ jobs:
           pip install pandas
           pip install plotly
           pip install datetime
+          pip install alive_progress
 
       # - name: Lint with flake8
       #   run: flake8 --statistics *.py
