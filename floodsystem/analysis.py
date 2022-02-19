@@ -2,7 +2,7 @@
 
 import numpy as np
 import matplotlib
-from collections import defaultdict
+import matplotlib.dates
 import datetime
 
 from floodsystem.datafetcher import fetch_measure_levels
@@ -52,7 +52,7 @@ def issue_warnings(stations, p=4, dt=1):
         if station not in unsafe_stations:
             stations_by_risk.append((station, station.relative_water_level(), risk_definition(station.relative_water_level())))
 
-        dates, levels = fetch_measure_levels(station.measure_id, dt =datetime.timedelta(days=dt))       #fetched plotting data
+        dates, levels = fetch_measure_levels(station.measure_id, dt=datetime.timedelta(days=dt))       #fetched plotting data
 
         try:
             levels = np.array(levels)
