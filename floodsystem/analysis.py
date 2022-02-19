@@ -21,7 +21,7 @@ def polyfit(dates,levels,p):                                    #LC Task 2F
 
     return poly, d0                                             #returns the polynomial expression and shift
 
-def issue_warnings(stations, p=4, t=1):
+def issue_warnings(stations, p=4, dt=1):
     
     def risk_definition(risk):                                  #define the boundaries for risks 
         boundaries = (0, 0.8, 1.5, 2)                           #these can be changed based on results
@@ -52,7 +52,10 @@ def issue_warnings(stations, p=4, t=1):
         if station not in unsafe_stations:
             stations_by_risk.append((station, station.relative_water_level(), risk_definition(station.relative_water_level())))
 
-        dates, levels = fetch_measure_levels(station.measure_id, dt=datetime.timedelta(days=t))       #fetched plotting data
+        try:
+            dates, levels = fetch_measure_levels(station.measure_id, dt=datetime.timedelta(days=dt))       #fetched plotting data
+        except (KeyError):
+            inconsistent_stations.append(station)
 
         try:
             levels = np.array(levels)
