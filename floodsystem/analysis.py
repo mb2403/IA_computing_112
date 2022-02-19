@@ -1,6 +1,7 @@
 # Lewis Clark Jan/Feb 2022
 
 import numpy as np
+from numpy import linalg as LA
 import matplotlib
 import matplotlib.dates
 import datetime
@@ -16,10 +17,12 @@ def polyfit(dates,levels,p):                                    #LC Task 2F
     x = x - d0                                      
     y = levels
 
-    p_coeff = np.polyfit(x,y,p)                                 #coefficients of polynomial of order p
-    poly = np.poly1d(p_coeff)                                   #converts to the right form for numpy to use
-
-    return poly, d0                                             #returns the polynomial expression and shift
+    try:
+        p_coeff = np.polyfit(x,y,p)  
+        poly = np.poly1d(p_coeff)                                   #converts to the right form for numpy to use
+        return poly, d0                                #coefficients of polynomial of order p
+    except(LA):
+        return np.poly1d(0), d0                                     #returns the polynomial expression and shift
 
 def issue_warnings(stations, p=4, dt=1):
     
