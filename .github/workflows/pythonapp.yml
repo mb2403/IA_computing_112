@@ -32,6 +32,7 @@ jobs:
           pip install haversine 
           pip install pandas
           pip install plotly
+          pip install datetime
 
       # - name: Lint with flake8
       #   run: flake8 --statistics *.py
