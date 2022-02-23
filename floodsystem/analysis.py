@@ -94,11 +94,8 @@ def issue_warnings(stations, p=4, dt=1):
                 stations_by_risk.append((station, 0, risk_definition(0)))
 
             count = count + 1
-            #print (stations_by_risk)
-            #print (risk_of_towns)
             bar()
-            #breakpoint
-            if count > 100:
-                break
+            #if count > 100:
+            #    break
 
         return risk_of_towns
