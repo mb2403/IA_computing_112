@@ -7,7 +7,7 @@ def run():
     stations = build_station_list()
     update_water_levels(stations)
     generate_layer_map(stations)  
-    generate_bubble_map(stations)            
+    #generate_bubble_map(stations)            
     
 if __name__ == "__main__":
     print("***Extensions: CUED Part IA Flood Warning System ***")

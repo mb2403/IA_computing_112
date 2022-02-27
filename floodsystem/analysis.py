@@ -95,7 +95,7 @@ def issue_warnings(stations, p=4, dt=1):
 
             count = count + 1
             bar()
-            #if count > 100:
-            #    break
+            if count > 100:
+                break
 
         return risk_of_towns
