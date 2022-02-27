@@ -13,26 +13,35 @@
 from turtle import pd
 from numpy import integer
 import pandas as pd
-import plotly.express as px 
+import plotly.express as px
 
-from floodsystem.flood import stations_level_over_threshold
+from floodsystem.stationdata import update_water_levels 
 
 def generate_layer_map(stations, tol=0, colour = "black"):
-
+    update_water_levels(stations)
     station_names = []
     locations = []
     relative_levels = []
-    lats=[]
+    lats = []
     longs = []
     towns = []
+    count = 0
 
 
+    for station in stations:
+        if station.relative_water_level() == None:
+            stations.pop(count)
+        elif (station.relative_water_level() > 5):
+            stations.pop(count)
+        elif (station.relative_water_level() < 0):
+            stations.pop(count)
+        count = count + 1
+                
     for item in stations:
         station_names.append(item.name)
         locations.append(item.coord)
         relative_levels.append(item.relative_water_level())
         towns.append(item.town)
-
 
     for item in locations:
         lats.append(item[0])
@@ -41,9 +50,9 @@ def generate_layer_map(stations, tol=0, colour = "black"):
     d = {'Station Name': station_names, 'Latitude' : lats, 'Longitude' : longs, 'Relative Level': relative_levels, 'Town': towns }
     stations_data_frame = pd.DataFrame(data=d)
 
-    fig = px.scatter_mapbox(stations_data_frame, lat = 'Latitude', lon = 'Longitude', hover_name = 'Station Name', hover_data = ['Relative Level', 'Town'], color_discrete_sequence=[colour],)
-    fig.update_layout(mapbox_style="open-street-map")
+    fig = px.scatter_mapbox(stations_data_frame, lat = 'Latitude', lon = 'Longitude', hover_name = 'Station Name', hover_data = ['Relative Level', 'Town'], color = "Relative Level", color_continuous_scale=px.colors.sequential.Bluered, range_color = (0,3))
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    fig.update_layout(mapbox_style = "open-street-map")
     fig.show()
 
 def generate_bubble_map(stations, tol=0, colour = "black"):

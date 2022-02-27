@@ -25,9 +25,7 @@ def polyfit(dates,levels,p):                                    #LC Task 2F
     except(LA):
         return np.poly1d(0), d0                                     #returns the polynomial expression and shift
 
-def issue_warnings(stations, p=4, dt=1):
-    
-    def risk_definition(risk):                                  #define the boundaries for risks 
+def risk_definition(risk):                                  #define the boundaries for risks 
         boundaries = (0, 0.8, 1.5, 2)                           #these can be changed based on results
         if risk == None:
             return "unknown"
@@ -40,6 +38,8 @@ def issue_warnings(stations, p=4, dt=1):
         else:
             return "severe"
 
+def issue_warnings(stations, p=4, dt=1):
+    
     stations_by_risk = []
     risk_of_towns = {}
     first_deriv_weight, second_deriv_weight = (5, 0.1)                      #weighting of the derivatives, can be changed 
